@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Hotel Charges
+    </title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+        body {
+            background: linear-gradient(to right, brown 0%, orange 100%);
+            color: black;
+        }
+
+        #homepage {
+            position: fixed;
+            bottom: 0;
+        }
+
+        img {
+            width: 600px;
+            height: auto;
+            border-radius: 6rem;
+        }
+
+
+        a:link,
+        a:visited {
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+
+        .tableclass {
+            border: solid black 10px;
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 80px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <table class="tableclass">
+        <tr>
+            <td>
+                <h1>Hotel Charges</h1>
+                <h3>Input a number of nights, nightly charge, room service charge, telephone charge and miscellaneous
+                    charges to compute room
+                    charges,additional charges, subtotal, tax and total charges for your stay at the hotel.
+                </h3>
+                <form name="theform">
+                    <table>
+                        <tr>
+                            <td rowspan="14"><img src="hotel.jpg" alt="picture of a hotel lobby"></td>
+                            <td colspan="2"><strong>Room Charges:</strong></td>
+                            <td rowspan="14"><img src="lamp.png" style="width: 250px; height:auto;"
+                                    alt="picture of a hotel lobby"></td>
+
+                        </tr>
+                        <tr>
+                            <td style="float: right">Nights:</td>
+                            <td><input name="nightsFmInput" size="10"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Nightly Charge:</td>
+                            <td><input name="nightlyFmInput" size="10"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 3px solid black"><strong>Additional Charges:</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Room Service:</td>
+                            <td><input name="serviceFmInput" size="10"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Telephone:</td>
+                            <td><input name="teleFmInput" size="10"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Miscellaneous:</td>
+                            <td><input name="miscFmInput" size="10"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 3px solid black"><strong>Total Charges:</strong></td>
+
+                        </tr>
+                        <tr>
+                            <td style="float: right">Room Charges:</td>
+                            <td style="background-color: white; color: black; font-weight: bold;"
+                                id="roomChargesFmOutput"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Additional Charges:</td>
+                            <td style="background-color: white; color: black; font-weight: bold;"
+                                id="additionalChargesFmOutput"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right"> Subtotal:</td>
+                            <td style="background-color: white; color: black; font-weight: bold;" id="subtotalFmOutput">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Tax: (8.25%)</td>
+                            <td style="background-color: white; color: black; font-weight: bold;" id="taxFmOutput"></td>
+                        </tr>
+                        <tr>
+                            <td style="float: right">Total Charges:</td>
+                            <td style="background-color: white; color: black; font-weight: bold;"
+                                id="totalChargesFmOutput"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" style="border-top: 3px solid black">
+                                <input type="button" name="calc" value="Calculate" onclick="calculate();">
+                                <input type="button" name="clear" value="Clear" onclick="clearinfo();">
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        //focus
+        document.theform.nightsFmInput.focus();
+
+        function calculate() {
+            //declare variables
+            var nights;
+            var nightly;
+            var service;
+            var tele;
+            var misc;
+
+            var roomCharge;
+            var additionalCharges;
+            var subtotal;
+            var tax;
+            var totalCharges;
+
+            //get values from the text fields
+            nights = parseInt(document.theform.nightsFmInput.value);
+            nightly = parseFloat(document.theform.nightlyFmInput.value);
+            service = parseFloat(document.theform.serviceFmInput.value);
+            tele = parseFloat(document.theform.teleFmInput.value);
+            misc = parseFloat(document.theform.miscFmInput.value);
+
+            //calculate the charges
+            roomCharge = parseFloat(nights * nightly);
+            additionalCharges = parseFloat(service + tele + misc);
+            subtotal = parseFloat(roomCharge + additionalCharges);
+            tax = parseFloat(.0825 * subtotal);
+            totalCharges = parseFloat(tax + subtotal);
+
+            //display all calculations
+            document.getElementById("roomChargesFmOutput").innerHTML = ('$ ') + roomCharge.toFixed(2);
+            document.getElementById("additionalChargesFmOutput").innerHTML = ('$ ') + additionalCharges.toFixed(2);
+            document.getElementById("subtotalFmOutput").innerHTML = ('$ ') + subtotal.toFixed(2);
+            document.getElementById("taxFmOutput").innerHTML = ('$ ') + tax.toFixed(2);
+            document.getElementById("totalChargesFmOutput").innerHTML = ('$ ') + totalCharges.toFixed(2);
+
+        }
+
+        function clearinfo() {
+
+            document.getElementById("roomChargesFmOutput").innerHTML = " ";
+            document.getElementById("additionalChargesFmOutput").innerHTML = " ";
+            document.getElementById("subtotalFmOutput").innerHTML = " ";
+            document.getElementById("taxFmOutput").innerHTML = " ";
+            document.getElementById("totalChargesFmOutput").innerHTML = " ";
+            document.theform.nightsFmInput.value = " ";
+            document.theform.nightlyFmInput.value = " ";
+            document.theform.serviceFmInput.value = " ";
+            document.theform.teleFmInput.value = " ";
+            document.theform.miscFmInput.value = " ";
+            document.theform.nightsFmInput.focus();
+        }
+
+    </script>
+
+
+
+
+
+    <div id="homepage">
+
+        <a href="http://csnet.southtexascollege.edu/localuser/egalva37/"> Go Back To HOMEPAGE</a><br>
+        Estevan Galvan
+
+    </div>
+
+</body>
+
+</html>
